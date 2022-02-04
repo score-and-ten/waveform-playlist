@@ -217,8 +217,13 @@ export default class {
       this.drawRequest();
     });
 
-    ee.on("shift", (deltaTime, track) => {
-      track.setStartTime(track.getStartTime() + deltaTime);
+   ee.on("shift", (deltaTime, track) => {
+      let newTime = track.getStartTime() + deltaTime;
+      //prevent negative start time
+      if(newTime < 0){
+        newTime = 0;
+      }
+      track.setStartTime(newTime);
       this.adjustDuration();
       this.drawRequest();
     });
